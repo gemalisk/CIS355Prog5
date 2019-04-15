@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="js/bootstrap.min.js"></script>
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> <!-- Added -->
+		<script type="text/javascript">
+			function getID() {
+				id = window.location.search.substring(1);
+				id = id.split("=");
+				return id[1];
+			}
+		
+			$(document).ready( function() {
+				$("#delete").click( function() {
+					console.log('HERE');
+					$.ajax( {
+						type: "POST",
+						url: "http://cs.svsu.edu/~gemalisk/CIS355Prog5/delete/delete.php",
+						data: "id="+getID()+"&delete=",
+						crossDomain: true,
+						cache: false,
+						beforeSend: function(){ $("#delete").val('Connecting...');},
+						success: function(data){ location.href = "../index/index.html"; }
+					});
+					return false;
+				});
+			});
+		</script> <!-- Finished with Added Code -->
+		
+    </head>
+    <body>
+        <div class="container">
+            <div class="span10 offset1">
+                <div class="row">
+                    <h3>Delete a Customer</h3>
+                </div>
+                <form class="form-horizontal"> <!-- Removed Action & Method --> 
+				<!-- Removed Php Error Echo -->
+                    <p class="alert alert-error">Are you sure to delete ?</p>
+                    <div class="form-actions">
+						<input type="button" id="delete" class="btn btn-danger" value="Yes"/> <!-- Changed Input Type -->
+						<a class="btn" href="../index/index.html">No</a> <!-- Changed Link Reference -->
+					</div>
+                </form>
+            </div>
+        </div> 
+    </body>
+</html>
